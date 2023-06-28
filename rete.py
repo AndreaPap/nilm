@@ -14,7 +14,7 @@ class TCN(nn.Module):
     def __init__(self,n_inputs,n_outputs,kernel_size,stride,dilation,dropout):
         super(TCN,self).__init__()
         self.net=nn.Sequential(
-            weight_norm(nn.Conv1d(n_inputs, n_outputs,kernel_size,stride=stride,padding='same',dilation=dilation)),#pad same caus
+            weight_norm(nn.Conv1d(n_inputs, n_outputs,kernel_size,stride=stride,padding='same',dilation=dilation)),#pad 'same' causale
             nn.ReLU(),
             nn.Dropout(dropout),
             weight_norm(nn.Conv1d(n_outputs, n_outputs,kernel_size,stride=stride,padding='same',dilation=dilation)),
