@@ -40,7 +40,7 @@ for build in fullSet.buildings:#.building lista di edifici
                             offset=datetime.timedelta(seconds=curInd*6)
                             if(curAct==len(applianceAct)-1 or startIndex+offset<applianceAct[curAct+1].index[0]):
                                 #se il nuovo punto che valuto non si sovrappone all'attivazione successiva(a causa del bilanciamento)
-                                #l'or skippa se ultima attivazione
+                                #or salta se ultima attivazione
                                 try:#se il dato ad un timestamp c'è non solleva eccezione
                                     xTmp=aggregateData[startIndex+offset]#primo controllo di esistenza dell'indice(sia su aggregato che su applicazione)
                                     yTmp=applianceData[startIndex+offset]
