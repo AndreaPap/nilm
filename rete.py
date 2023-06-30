@@ -1,20 +1,12 @@
 import torch.nn as nn
 from torch.nn.utils import weight_norm
 import torch
-
-class Causal(nn.Module):
-    #pytorch fa un padding doppio (sx,dx), nella convoluzione faccio il doppio del padding necessario poi con questa classe lo tolgo
-    def __init__(self,shift):
-        super(Causal,self).__init__()
-        self.shift=shift
-    def forward(self, x):
-        return x[:, :, :-self.shift].contiguous()
         
 class TCN(nn.Module):
     def __init__(self,n_inputs,n_outputs,kernel_size,stride,dilation,dropout):
         super(TCN,self).__init__()
         self.net=nn.Sequential(
-            weight_norm(nn.Conv1d(n_inputs, n_outputs,kernel_size,stride=stride,padding='same',dilation=dilation)),#pad 'same' causale
+            weight_norm(nn.Conv1d(n_inputs, n_outputs,kernel_size,stride=stride,padding='same',dilation=dilation)),
             nn.ReLU(),
             nn.Dropout(dropout),
             weight_norm(nn.Conv1d(n_outputs, n_outputs,kernel_size,stride=stride,padding='same',dilation=dilation)),
